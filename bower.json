@@ -1,0 +1,17 @@
+{
+  "name": "g4.mixin ",
+  "homepage": "https://github.com/g4code/g4.mixin.git",
+  "authors": [
+    "Drasko Gomboc <drasko.gomboc@gmail.com>"
+  ],
+  "description": "global mixin for all projects",
+  "main": "src/_mixin.scss",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "mixin",
+    "advanced scss"
+  ],
+  "license": "MIT"
+}

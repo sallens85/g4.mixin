@@ -1,0 +1,603 @@
+/**************************************** GLOBAL VARIABLES ****************************************/
+
+$online     : #9ed026;
+$offline    : #999999;
+$light 		: #98aab3;
+
+@if variable-exists(online_custom) {
+        $online       : $online_custom;
+}
+@if variable-exists(online_custom) {
+   $online       : $online_custom;
+}
+
+/**************************************** SPRITE IMAGES DIMENSION ****************************************/
+/*add dimensions to sprite images*/
+@mixin sprite-dimensions($map, $sprite) {
+    height: image-height(sprite-file($map, $sprite));
+    width: image-width(sprite-file($map, $sprite));
+}
+
+/**************************************** BREAAKPOINT ****************************************/
+/*chose breakpoint and put in mixin*/
+/*@include breakpoint(small); for mobile device*/
+
+$big 		: 1600px;
+$medium 	: 1200px;
+$tablet 	: 1024px;
+$small	 	: 803px;
+
+@if variable-exists(big_custom) {
+        $big       : $big_custom;
+}
+@if variable-exists(medium_custom) {
+        $medium       : $medium_custom;
+}
+@if variable-exists(tablet_custom) {
+        $tablet       : $tablet_custom;
+}
+@if variable-exists(small_custom) {
+        $small       : $small_custom;
+}
+
+@mixin breakpoint($point) {
+    @if $point == big {
+        @media (max-width: $big) {
+            @content;
+        }
+    }
+    @else if $point == medium {
+        @media (max-width: $medium) {
+            @content;
+        }
+    }
+    @else if $point == small {
+        @media (max-width: $small) {
+            @content;
+        }
+    }
+    @else if $point == greaterthansmall {
+        @media (min-width: $small) {
+            @content;
+        }
+    }
+    @else if $point == greaterthantablet {
+        @media (min-width: $tablet) {
+            @content;
+        }
+    }
+    @else if $point == greaterthanmedium {
+        @media (min-width: $medium) {
+            @content;
+        }
+    }
+    @else if $point == betweenmediumsmall {
+        @media (min-width: $small) and (max-width: $medium) {
+            @content;
+        }
+    }
+    @else if $point == tabletsmall {
+        @media (min-width: $tablet) and (max-width: 1199px) {
+            @content;
+        }
+    }
+    @else if $point == tabletbig {
+        @media (min-width: $small) and (max-width: 1023px) {
+            @content;
+        }
+    }
+}
+
+/**************************************** PLACEHOLDER ****************************************/
+/*show element depend from size*/
+@mixin for_device($device_size) {
+    /*for big devices*/
+    @if $device_size == big {
+        @media (min-width: $small) {
+            display: block;
+        }
+        @media (max-width: $small) {
+            display: none;
+        }
+    }
+    @else if $device_size == small {
+        @media (min-width: $small) {
+            display: none;
+        }
+        @media (max-width: $small) {
+            display: block;
+        }
+    }
+}
+
+/**************************************** PLACEHOLDER ****************************************/
+optional add color, line-height or font-size
+
+@mixin placeholder($color:$light, $size:14px, $line-height:null) {
+
+    @if $line-height == null {
+        $line-height : $size;
+    }@else {
+        $line-height : $line-height;
+    }
+
+
+        &::-webkit-input-placeholder {
+           color: $color;
+           font-size: $size;
+           line-height: $line-height;
+        }
+        &:-webkit-input-placeholder {
+           color: $color;
+           font-size: $size;
+           line-height: $line-height;
+        }
+
+        &:-moz-placeholder { /* Firefox 18- */
+           color: $color;
+           font-size: $size;
+           line-height: $line-height;
+        }
+
+        &::-moz-placeholder {  /* Firefox 19+ */
+           color: $color;
+           font-size: $size;
+           line-height: $line-height;
+        }
+
+        &:-ms-input-placeholder {
+           color: $color;
+           font-size: $size;
+           line-height: $line-height;
+        }
+}
+
+/**************************************** ROTATE ****************************************/
+@mixin rotate($angle) {
+    -webkit-transform:rotate($angle);
+    -ms-transform:rotate($angle);
+    // IE9 only
+    transform:rotate($angle);
+    -moz-transform:rotate($angle);
+    -o-transform:rotate($angle);
+    -ms-transform:rotate($angle);
+    display: inline-block;
+}
+
+/**************************************** TRANSLATE ****************************************/
+@mixin translate($x, $y) {
+    -webkit-transform: translate($x, $y);
+    -ms-transform: translate($x, $y);
+    -o-transform: translate($x, $y);
+    transform: translate($x, $y);
+}
+
+/**************************************** TRASNITION ****************************************/
+@mixin transition($time) {
+    -webkit-transition: all linear $time;
+    -moz-transition: all linear $time;
+    -ms-transition: all linear $time;
+    -o-transition: all linear $time;
+    transition: all linear $time;
+}
+
+/*******************************  Transparent bg with alpha filter*****************************/
+@mixin transparent-bg($opacity) {
+    background:transparent;
+    background: rgba(0,0,0,$opacity);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorStr=#7f000000,endColorStr=#7f000000);
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000)";
+    zoom: 1;
+}
+
+
+/*********************************** element POSITION CENTER **************************************/
+/*default value is full which put absolute ceneter element OPTIONAL argumet is top*/
+@mixin center($position:full) {
+    @if $position == full {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include translate(-50%, -50%);       
+    }
+    @else if $position == top{
+        position: absolute;
+        left: 50%;
+        top: 0;
+        @include translate(-50%, 0);       
+    }
+}
+/**************************************** block POSITION CENTER ****************************************/
+/*add bow for wrapper with text which contain class ".center_text" text and include mixin on warapper*/
+@mixin center-box {
+    @include center;
+    height: 50%;
+    padding: 20px;
+    width: 50%;
+    .center_text {
+        @include center(top);
+    }
+}
+
+
+
+/**************************************** TRIANGLE on chat win ****************************************/
+@mixin trianglel($width, $top, $left, $padding, $arrow_pos, $border:(darken($light, 30%)),  $triangleCol:$light) {
+    padding: $padding;
+    border: 1px solid $border;
+    position: absolute;
+    width: $width;
+    top: $top;
+    left: $left;
+    background: $triangleCol;
+    &:after,
+    &:before {
+        content: '';
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        position: absolute;
+        top: $arrow_pos;
+        margin-top: -10px;
+    }
+    &:after {
+        border-right: 10px solid $triangleCol;
+        left: -8px;
+    }
+    &:before {
+        border-right: 10px solid $border;
+        left: -10px;
+    }
+}
+
+@mixin triangler($width, $top, $left, $padding, $arrow_pos, $border:(darken($light, 30%)),  $triangleCol:$light) {
+    padding: $padding;
+    border: 1px solid $border;
+    position: absolute;
+    width: $width;
+    top: $top;
+    left: $left;
+    background: $triangleCol;
+    &:after,
+    &:before {
+        content: '';
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        position: absolute;
+        top: $arrow_pos;
+        margin-top: -10px;
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+    }
+    &:after {
+        border-right: 10px solid $triangleCol;
+        /*left: $width - 3px;*/
+        right: -8px;
+    }
+    &:before {
+        border-right: 10px solid $border;
+        /*left: $width - 1px;*/
+        right: -9px;
+    }
+}
+
+
+/**************************************** ELLIPSIS ****************************************/
+
+@mixin ellipsis($width) {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: $width;
+    white-space: nowrap;
+}
+
+@mixin simpleEllipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $colorFontDark;
+}
+
+/*add three dots(...) on the end of text, for custom number of columns*/
+/*line cound depen how many line we will have*/
+@mixin multiLineEllipsis($fontSize, $lineCount,$maxWidth:100%, $bgColor:transparent) {
+  overflow: hidden;
+  position: relative;
+  max-width: $maxWidth;
+  font-size: $fontSize;
+  $lineHeight: $fontSize + 2;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  &:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: $bgColor;
+  }
+}
+
+/**************************************** FAVORITE star ****************************************/
+@mixin favinside($topHolder, $rightHolder, $topStar, $rightStar) {
+  &:before {
+    position: absolute;
+    top: $topHolder;
+    right: $rightHolder;
+    display: block;
+    border-top: 25px solid darken($colorBorderLight;
+    border-left: 25px solid transparent;
+  }
+  &:after {
+    color: $wind;
+    font-size: 12px;
+    position: absolute;
+    top: $topStar;
+    right: $rightStar;
+    text-indent: 0;
+  }
+  @include icons($icon-star, a);
+}
+
+
+@mixin favinside2($topHolder, $leftHolder, $topStar, $leftStar) {
+  &:before {
+    position: absolute;
+    top: $topHolder;
+    left: $leftHolder;
+    display: block;
+    border-top: 25px solid $light;
+    border-left: 25px solid transparent;
+  }
+  &:after {
+    color: $online;
+    font-size: 12px;
+    position: absolute;
+    top: $topStar;
+    left: $leftStar;
+    text-indent: 0;
+  }
+  @include icons($icon-star, a);
+}
+/**************************************** SAMPLE ****************************************/
+/*disable text selection*/
+@mixin disableSelection($value) {
+    -webkit-user-select: $value;
+    -khtml-user-select: $value;
+    -moz-user-select: $value;
+    -o-user-select: $value;
+    -ms-user-select: $value;
+    user-select: $value;
+}
+/**************************************** border radius ****************************************/
+@mixin border-radius($value) {
+    -webkit-border-radius: $value;
+    -khtml-border-radius: $value;
+    -moz-border-radius: $value;
+    -ms-border-radius: $value;
+    border-radius: $value;
+}
+/*border radius CUSTOM*/
+@mixin border-radius-custom($value_top_left, $value_top_right, $value_bottom_right, $value_bottom_left) {
+    border-top-left-radius: $value_top_left;
+    -moz-border-radius-topleft: $value_top_left;
+    -webkit-border-top-left-radius: $value_top_left;
+    border-top-right-radius: $value_top_right;
+    -moz-border-radius-topright: $value_top_right;
+    -webkit-border-top-right-radius: $value_top_right;
+    border-bottom-right-radius: $value_bottom_right;
+    -moz-border-radius-bottomright: $value_bottom_right;
+    -webkit-border-bottom-right-radius: $value_bottom_right;
+    border-bottom-left-radius: $value_bottom_left;
+    -moz-border-radius-bottomleft: $value_bottom_left;
+    -webkit-border-bottom-left-radius: $value_bottom_left;
+}
+/**************************************** GRADIENT ****************************************/
+@mixin gradient($color1, $color2) {
+    background: $color2;
+    background: -moz-linear-gradient(top, $color1 0%, $color2 75%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $color1), color-stop(75%, $color2));
+    background: -webkit-linear-gradient(top, $color1 0%, $color2 75%);
+    background: -o-linear-gradient(top, $color1 0%, $color2 75%);
+    background: -ms-linear-gradient(top, $color1 0%, $color2 75%);
+    background: linear-gradient(to bottom, $color1 0%, $color2 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$color1', endColorstr='$color2',GradientType=0 );
+}
+
+
+@mixin gradientradial($gradient_radial_col1,$gradient_radial_col2:$gradient_radial_col1 ){
+    background: $gradient_radial_col1;
+    background: -moz-radial-gradient(center, ellipse cover,  r$gradient_radial_col1 0%, $gradient_radial_col2 100%);
+    background: -webkit-radial-gradient(center, ellipse cover,  $gradient_radial_col1 0%,$gradient_radial_col2 100%);
+    background: radial-gradient(ellipse at center,  $gradient_radial_col1 0%,$gradient_radial_col2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$gradient_radial_col1', endColorstr='$gradient_radial_col2',GradientType=1 );
+}
+
+/**************************************** gradient transparency ****************************************/
+@mixin gradienttranparency($percent) {
+
+  background: -moz-linear-gradient(top,  rgba(0,0,0,$percent) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+  background: -moz-linear-gradient(top,  rgba(0,0,0,$percent) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,$percent) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(0,0,0,$percent) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+/**************************************** CIRCLE ****************************************/
+@mixin circle($size, $color) {
+    border-radius: 50%;
+    width: $size;
+    height: $size;
+    background-color: $color;
+    background: $color;
+    display: inline-block;
+}
+
+/**************************************** OPACITY ****************************************/
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    // IE8 filter
+    $opacity-ie: $opacity * 100;
+    filter: #{alpha(opacity = $opacity-ie)};
+}
+
+/**************************************** CLEARFIX ****************************************/
+@mixin clearfix() {
+    clear: both;
+    &:before,
+    &:after {
+        content: " "; // 1
+        display: table; // 2
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+/**************************************** SAMPLE ****************************************/
+
+/*this mixin we use to include online green circle for partial online*/
+@mixin online() {
+    background: none repeat scroll 0 0 $online;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-left: 0px;
+    margin-bottom: 4px;
+    width: 10px;
+}
+/**************************************** SAMPLE ****************************************/
+/*add arrow for select field*/
+@mixin arrow($image, $right: 5px) {
+    background-image: url("/img/#{$image}.svg");
+    background-repeat: no-repeat;
+    background-position: right #{$right} center;
+}
+
+/**************************************** SAMPLE ****************************************/
+/*break html element in new line*/
+@mixin break {
+     &:after {
+        content:"\a";
+        white-space: pre;
+    }
+}
+
+/************************* Put element in middle of screen ****************************/
+
+/*center content inside some wrapper*/
+/*just declare */
+
+
+@mixin inmiddle($el, $width, $html, $fluid:100%) {
+
+    $margin :       calc(  ((#{$fluid}  - (#{$el} * #{$width})) / (#{$el} )) / 2  );
+    $margin_neg :   calc(  ((-#{$fluid} + (#{$el} * #{$width})) / (#{$el} - 1 )) / 2  );
+
+    margin-left:    $margin_neg;
+    margin-right:   $margin_neg;
+    float: none;
+    width: auto;
+
+    & > #{$html} {
+        width: $width;
+        text-align: center;
+        margin-left: $margin;
+        margin-right: $margin;
+        display: block;
+        float: left;
+    }
+}
+@mixin inmiddle2($el, $width, $html, $fluid:100%) {
+
+    $margin :       calc(  ((#{$fluid}  - (#{$el} * #{$width})) / (#{$el} )) / 2  );
+    $margin_neg :   calc(  ((-#{$fluid} + (#{$el} * #{$width})) / (#{$el} - 1 )) / 2  );
+
+    margin-left:    $margin_neg;
+    margin-right:   $margin_neg;
+    float: none;
+    width: auto;
+
+    & > .#{$html} {
+        width: $width;
+        margin-left: $margin;
+        margin-right: $margin;
+        display: block;
+        float: left;
+    }
+}
+
+/**************************************** BOX shadow ****************************************/
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+  -webkit-box-shadow:$top $left $blur $color #{$inset};
+  -moz-box-shadow:$top $left $blur $color #{$inset};
+  box-shadow:$top $left $blur $color #{$inset};
+}
+
+/**************************************** SAMPLE ****************************************/
+/*include mixin before backgroud color declaration*/
+/*MUST HAVE background-color NO background*/
+@mixin blendmode($type:null) {
+    @if $type != null {
+        background-blend-mode: $type;
+        background: linear-gradient(to top, black 0%,transparent 100%);
+
+    }
+}
+
+/**************************************** custom loader ****************************************/
+/*custom loader*/
+@mixin loader_custom($bg-color, $border-color:$bg-color) {
+    @if $bg-color == $border-color {
+        border: 1px solid darken($border-color, 20%);
+    }
+    @else {
+        border: 1px solid $border-color;
+    }
+    background-color: $bg-color;
+    @include border-radius(50%);
+    display: inline-block;
+    float: none;
+    margin: 0;
+    padding: 15px;
+}
+/**************************************** SAMPLE ****************************************/
+/*you need add in HTML data-tooltip parametar*/
+@mixin tooltip($pad1:2px, $pad2:$pad1, $color1:#E8E8E8, $color2:$color1, $text:black) {
+  &:hover {
+    position: relative;
+  }
+  &[data-tooltip]:hover:after {
+    content: attr(data-tooltip);
+    padding: $pad1 $pad2;
+    color: $text;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+    z-index: 20px;
+    text-transform: capitalize;
+    @include border-radius (5px);
+    -moz-box-shadow: 0px 0px 2px #98aab3;
+    -webkit-box-shadow: 0px 0px 2px #98aab3;
+    box-shadow: 0px 0px 2px #98aab3;
+    background-image: -moz-linear-gradient(top, $color1, $color2);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, $color1),color-stop(1, $color2));
+    background-image: -webkit-linear-gradient(top, $color1, $color2);
+    background-image: -moz-linear-gradient(top, $color1, $color2);
+    background-image: -ms-linear-gradient(top, $color1, $color2);
+    background-image: -o-linear-gradient(top, $color1, $color2);
+  }
+
+}
+/**************************************** SAMPLE ****************************************/
+/**************************************** SAMPLE ****************************************/
