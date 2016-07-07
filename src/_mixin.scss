@@ -198,13 +198,13 @@ optional add color, line-height or font-size
         position: absolute;
         top: 50%;
         left: 50%;
-        @include translate(-50%, -50%);       
+        @include translate(-50%, -50%);
     }
     @else if $position == top{
         position: absolute;
         left: 50%;
         top: 0;
-        @include translate(-50%, 0);       
+        @include translate(-50%, 0);
     }
 }
 /**************************************** block POSITION CENTER ****************************************/
@@ -599,5 +599,21 @@ optional add color, line-height or font-size
   }
 
 }
-/**************************************** SAMPLE ****************************************/
+/**************************************** text rendering ****************************************/
+//description: decide what is prioriti for text rendering
+//Options: auto, optimizeSpeed, optimizeLegibility, geometricPrecision
+//web adress https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering
+
+@mixin text_render($type:auto) {
+  @if $type == speed {
+    text-rendering: optimizeSpeed;
+  }
+  @if $type == quality {
+    text-rendering: optimizeLegibility;
+  }
+  @if $type == precision {
+    text-rendering: geometricPrecision;
+  }
+}
+
 /**************************************** SAMPLE ****************************************/
