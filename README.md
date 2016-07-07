@@ -1,5 +1,30 @@
 Mixins
 ======
+## Requirements
+
+**Sass Utilities**
+
+
+Install :
+
+```sh
+sudo gem install sass-utilities
+```
+
+
+Official address
+
+```sh
+https://github.com/edwardoriordan/sass-utilities
+```
+
+
+Using
+
+With this plugin we can check does varible, function, mixin exist
+@if variable-exists(some_variable) { }@else { }
+
+
 
 ## Usage
 
