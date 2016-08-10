@@ -2,13 +2,13 @@
 
 $online     : #9ed026;
 $offline    : #999999;
-$light 		: #98aab3;
+$light      : #98aab3;
 
 @if variable-exists(online_custom) {
-        $online       : $online_custom;
+    $online       : $online_custom;
 }
 @if variable-exists(online_custom) {
-   $online       : $online_custom;
+    $offline      : $offline_custom;
 }
 
 /**************************************** SPRITE IMAGES DIMENSION ****************************************/
@@ -20,69 +20,69 @@ $light 		: #98aab3;
 
 /**************************************** BREAAKPOINT ****************************************/
 /*chose breakpoint and put in mixin*/
-/*@include breakpoint(small); for mobile device*/
+/*@include breakpoint(xs); for mobile device*/
 
-$big 		: 1600px;
-$medium 	: 1200px;
-$tablet 	: 1024px;
-$small	 	: 803px;
+$l      : 1200px;
+$m      : 992px;
+$s      : 768px;
+$xs     : 544px;
 
-@if variable-exists(big_custom) {
-        $big       : $big_custom;
+@if variable-exists(l_custom) {
+        $l      : $l_custom;
 }
-@if variable-exists(medium_custom) {
-        $medium       : $medium_custom;
+@if variable-exists(m_custom) {
+        $m      : $m_custom;
 }
-@if variable-exists(tablet_custom) {
-        $tablet       : $tablet_custom;
+@if variable-exists(s_custom) {
+        $s      : $s_custom;
 }
-@if variable-exists(small_custom) {
-        $small       : $small_custom;
+@if variable-exists(xs_custom) {
+        $xs     : $xs_custom;
 }
 
 @mixin breakpoint($point) {
-    @if $point == big {
-        @media (max-width: $big) {
+    @if $point == l {
+        @media (max-width: $l) {
             @content;
         }
     }
-    @else if $point == medium {
-        @media (max-width: $medium) {
+    @else if $point == m {
+        @media (max-width: $m) {
             @content;
         }
     }
-    @else if $point == small {
-        @media (max-width: $small) {
+    @else if $point == xs {
+        @media (max-width: $xs) {
             @content;
         }
     }
-    @else if $point == greaterthansmall {
-        @media (min-width: $small) {
+    @else if $point == greaterthanxs {
+        @media (min-width: $xs) {
             @content;
         }
     }
-    @else if $point == greaterthantablet {
-        @media (min-width: $tablet) {
+    @else if $point == greaterthans {
+        @media (min-width: $s) {
             @content;
         }
     }
-    @else if $point == greaterthanmedium {
-        @media (min-width: $medium) {
+    @else if $point == greaterthanm {
+        @media (min-width: $m) {
             @content;
         }
     }
-    @else if $point == betweenmediumsmall {
-        @media (min-width: $small) and (max-width: $medium) {
+    @else if $point == betweenmxs {
+        @media (min-width: $xs) and (max-width: $m) {
             @content;
         }
     }
     @else if $point == tabletsmall {
-        @media (min-width: $tablet) and (max-width: 1199px) {
+        @media (min-width: $s) and (max-width: 1199px) {
             @content;
         }
     }
-    @else if $point == tabletbig {
-        @media (min-width: $small) and (max-width: 1023px) {
+    @else if $point == tabletl {
+        @media (min-width: $xs) and (max-width: 1023px) {
             @content;
         }
     }
@@ -90,28 +90,28 @@ $small	 	: 803px;
 
 /**************************************** PLACEHOLDER ****************************************/
 /*show element depend from size*/
-@mixin for_device($device_size) {
-    /*for big devices*/
-    @if $device_size == big {
-        @media (min-width: $small) {
+@mixin for_device($device_size, $breakpoint:$s) {
+    /*for l devices*/
+    @if $device_size == desktop {
+        @media (min-width: $breakpoint) {
             display: block;
         }
-        @media (max-width: $small) {
+        @media (max-width: $breakpoint) {
             display: none;
         }
     }
-    @else if $device_size == small {
-        @media (min-width: $small) {
+    @else if $device_size == mobile {
+        @media (min-width: $breakpoint) {
             display: none;
         }
-        @media (max-width: $small) {
+        @media (max-width: $breakpoint) {
             display: block;
         }
     }
 }
 
 /**************************************** PLACEHOLDER ****************************************/
-optional add color, line-height or font-size
+/*optional add color, line-height or font-size*/
 
 @mixin placeholder($color:$light, $size:14px, $line-height:null) {
 
@@ -335,7 +335,7 @@ optional add color, line-height or font-size
     top: $topHolder;
     right: $rightHolder;
     display: block;
-    border-top: 25px solid darken($colorBorderLight;
+    border-top: 25px solid darken($colorBorderLight);
     border-left: 25px solid transparent;
   }
   &:after {
@@ -616,4 +616,23 @@ optional add color, line-height or font-size
   }
 }
 
-/**************************************** SAMPLE ****************************************/
+/**************************************** GRID LAYOUT ****************************************/
+/*====================================================
+LAYOUT SETUP: Width column, left-padding column
+====================================================*/
+/*=== Print out each class   ===*/
+@mixin grid_layout($layouts) {
+    @each $layout in $layouts {
+        $i: index($layouts, $layout);
+
+        .layout_col_#{$i} {
+            width: nth($layout, 1);
+            padding-left: nth($layout, 2);
+            border: 1px solid red;
+            display: block;
+            float: left;
+            height: 100%;
+            min-height: 500px;
+        }
+    }
+}
