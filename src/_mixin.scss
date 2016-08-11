@@ -1,13 +1,9 @@
 /**************************************** GLOBAL VARIABLES ****************************************/
 
-$online     : #9ed026;
-$offline    : #999999;
-$light      : #98aab3;
-
 @if variable-exists(online_custom) {
     $online       : $online_custom;
 }
-@if variable-exists(online_custom) {
+@if variable-exists(offline_custom) {
     $offline      : $offline_custom;
 }
 
@@ -22,10 +18,6 @@ $light      : #98aab3;
 /*chose breakpoint and put in mixin*/
 /*@include breakpoint(xs); for mobile device*/
 
-$l      : 1200px;
-$m      : 992px;
-$s      : 768px;
-$xs     : 544px;
 
 @if variable-exists(l_custom) {
         $l      : $l_custom;
@@ -546,12 +538,9 @@ $xs     : 544px;
 /**************************************** SAMPLE ****************************************/
 /*include mixin before backgroud color declaration*/
 /*MUST HAVE background-color NO background*/
-@mixin blendmode($type:null) {
-    @if $type != null {
+@mixin blendmode($type:overlay) {
         background-blend-mode: $type;
         background: linear-gradient(to top, black 0%,transparent 100%);
-
-    }
 }
 
 /**************************************** custom loader ****************************************/
