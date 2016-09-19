@@ -617,11 +617,65 @@ LAYOUT SETUP: Width column, left-padding column
         .layout_col_#{$i} {
             width: nth($layout, 1);
             padding-left: nth($layout, 2);
-            border: 1px solid red;
             display: block;
             float: left;
             height: 100%;
-            min-height: 500px;
+            min-height: 1px;
         }
+    }
+}
+/*====================================================
+Mixin for setup form elements fields
+parametars 1. width form_group el, 2. height, 3.padding left and right ( optional, font size for form fields
+====================================================*/
+@mixin form_group($width, $height, $padding, $icon_caret:null, $icon_rotate: null, $text_size: $font_size_default, $text_padding:null) {
+    width: $width;
+    height: $height;
+    padding-left: $padding;
+    padding-right: $padding;
+    position: relative;
+    float: left;
+
+    $average_top_empty_space: calc( ( #{$height} - #{$text_size} ) / 2);
+
+    @if $text_padding == null {
+        $text_padding: $average_top_empty_space;
+    }
+    &.caret{
+
+        @include icons($icon_caret);
+
+        @if $icon_caret == null {
+            @if variable-exists(icon-select-caret) {
+                @include icons($icon-select-caret);
+            }
+        }
+
+        &:before {
+            font-size: $text_size;
+            top: $average_top_empty_space;
+            right: calc( #{$form_group_padding} + #{$average_top_empty_space} * 2);
+            position: absolute;
+            pointer-events: none;
+            @include rotate(#{$icon_rotate});
+        }
+    }
+
+    .select,
+    select,
+    .input, input,
+    .textarea, textarea,
+    .twitter-typeahead {
+        height: $height;
+        font-size: $text_size;
+        padding-left: $text_padding;
+        padding-right: $text_padding;
+        width:100%;
+    }
+    .form_label {
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: -20px;
     }
 }
