@@ -319,6 +319,16 @@
     background: $bgColor;
   }
 }
+/*this work on new browsers*/
+@mixin multiline-ellipsis ($max-height, $lines) {
+        overflow: hidden;
+        max-height: $max-height;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $lines;
+        // Solution for Opera
+        text-overflow: -o-ellipsis-lastline;
+    }
 
 /**************************************** FAVORITE star ****************************************/
 @mixin favinside($topHolder, $rightHolder, $topStar, $rightStar) {
@@ -678,4 +688,20 @@ parametars 1. width form_group el, 2. height, 3.padding left and right ( optiona
         position: absolute;
         top: -20px;
     }
+}
+
+/*opacity mixin*/
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    // IE8 filter
+    $opacity-ie: $opacity * 100;
+    filter: #{alpha(opacity = $opacity-ie)};
+}
+.disabled,
+[disabled]{
+    cursor: not-allowed;
+    pointer-events: none;
+    // Future-proof disabling of clicks
+    @include opacity(0.65);
+    box-shadow: none;
 }
