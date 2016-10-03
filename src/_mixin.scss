@@ -82,22 +82,22 @@
 
 /**************************************** PLACEHOLDER ****************************************/
 /*show element depend from size*/
-@mixin for_device($device_size, $breakpoint:$s) {
+@mixin for_device($device_size,$display: block, $breakpoint:$s) {
     /*for l devices*/
     @if $device_size == desktop {
         @media (min-width: $breakpoint) {
-            display: block !important;
+            display: $display ;
         }
         @media (max-width: $breakpoint) {
-            display: none !important;
+            display: none ;
         }
     }
     @else if $device_size == mobile {
         @media (min-width: $breakpoint) {
-            display: none !important;
+            display: none ;
         }
         @media (max-width: $breakpoint) {
-            display: block !important;
+            display: $display;
         }
     }
 }
