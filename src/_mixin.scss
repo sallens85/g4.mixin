@@ -86,18 +86,18 @@
     /*for l devices*/
     @if $device_size == desktop {
         @media (min-width: $breakpoint) {
-            display: block;
+            display: block !important;
         }
         @media (max-width: $breakpoint) {
-            display: none;
+            display: none !important;
         }
     }
     @else if $device_size == mobile {
         @media (min-width: $breakpoint) {
-            display: none;
+            display: none !important;
         }
         @media (max-width: $breakpoint) {
-            display: block;
+            display: block !important;
         }
     }
 }
