@@ -664,6 +664,7 @@ parametars 1. width form_group el, 2. height, 3.padding left and right ( optiona
         &:before {
             font-size: $text_size;
             top: $average_top_empty_space;
+            right: 5%;
             right: calc( #{$form_group_padding} + #{$average_top_empty_space} * 2);
             position: absolute;
             pointer-events: none;
