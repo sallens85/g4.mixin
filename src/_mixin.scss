@@ -706,3 +706,9 @@ parametars 1. width form_group el, 2. height, 3.padding left and right ( optiona
     @include opacity(0.65);
     box-shadow: none;
 }
+//mixin for bg image
+//accept two arguments $domain(domain name) and $image_name(file name with ekstension)
+@mixin bg_image($image_name, $site_domain:'undefind-variable' ){
+    background-image: url('/img/sites/ed/#{$site_domain}/backgrounds/#{$image_name}');
+    background-repeat: repeat;
+}
