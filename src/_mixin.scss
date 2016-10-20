@@ -548,9 +548,11 @@
 /**************************************** SAMPLE ****************************************/
 /*include mixin before backgroud color declaration*/
 /*MUST HAVE background-color NO background*/
-@mixin blendmode($type:overlay) {
+@mixin blendmode($type:null) {
+    @if $type != null {
         background-blend-mode: $type;
         background: linear-gradient(to top, black 0%,transparent 100%);
+    }
 }
 
 /**************************************** custom loader ****************************************/
