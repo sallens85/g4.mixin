@@ -48,6 +48,11 @@
             @content;
         }
     }
+    @else if $point == s {
+        @media (max-width: $s) {
+            @content;
+        }
+    }
     @else if $point == greaterthanxs {
         @media (min-width: $xs) {
             @content;
