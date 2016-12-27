@@ -33,53 +33,105 @@
 }
 
 @mixin breakpoint($point) {
+    //breakpoint for large device
     @if $point == l {
         @media (max-width: $l) {
             @content;
         }
     }
+    @else if $point == big {
+        @media (max-width: $l) {
+            @content;
+        }
+    }
+    //breakpoint for medium device
     @else if $point == m {
         @media (max-width: $m) {
             @content;
         }
     }
-    @else if $point == xs {
-        @media (max-width: $xs) {
+    @else if $point == medium {
+        @media (max-width: $m) {
             @content;
         }
     }
+    //breakpoint for small device
     @else if $point == s {
         @media (max-width: $s) {
             @content;
         }
     }
+    @else if $point == small {
+        @media (max-width: $s) {
+            @content;
+        }
+    }
+    //breakpoint for extra-small device
+    @else if $point == xs {
+        @media (max-width: $xs) {
+            @content;
+        }
+    }
+    //breakpoint for greater than extra-small device
     @else if $point == greaterthanxs {
         @media (min-width: $xs) {
             @content;
         }
     }
+    //breakpoint for greater than small device
     @else if $point == greaterthans {
         @media (min-width: $s) {
             @content;
         }
     }
+    @else if $point == greaterthansmall {
+        @media (min-width: $s) {
+            @content;
+        }
+    }
+    //breakpoint for greater than small device
     @else if $point == greaterthanm {
         @media (min-width: $m) {
             @content;
         }
     }
-    @else if $point == betweenmxs {
+    @else if $point == greaterthanmedium {
+        @media (min-width: $m) {
+            @content;
+        }
+    }
+    //breakpoint for greater than small device
+    @else if $point == greaterthanl {
+        @media (min-width: $l) {
+            @content;
+        }
+    }
+    //breakpoint between extra-small and medium
+    @else if $point == betweenxss {
+        @media (min-width: $xs) and (max-width: $s) {
+            @content;
+        }
+    }
+    //breakpoint between exstra-small and medium
+    @else if $point == betweenxsm {
         @media (min-width: $xs) and (max-width: $m) {
             @content;
         }
     }
-    @else if $point == tabletsmall {
-        @media (min-width: $s) and (max-width: 1199px) {
+    //breakpoint between small and medium
+    @else if $point == betweensm {
+        @media (min-width: $s) and (max-width: $m) {
             @content;
         }
     }
-    @else if $point == tabletl {
-        @media (min-width: $xs) and (max-width: 1023px) {
+    @else if $point == betweenmediumsmall {
+        @media (min-width: $s) and (max-width: $m) {
+            @content;
+        }
+    }
+    //breakpoint between medium and large
+    @else if $point == betweenml {
+        @media (min-width: $m) and (max-width: $l) {
             @content;
         }
     }
