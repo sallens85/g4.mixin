@@ -537,7 +537,7 @@
 /**************************************** SAMPLE ****************************************/
 /*add arrow for select field*/
 @mixin arrow($image, $right: 5px) {
-    background-image: url("/img/#{$image}.svg");
+    background-image: image-url("#{$image}.svg");
     background-repeat: no-repeat;
     background-position: right #{$right} center;
 }
