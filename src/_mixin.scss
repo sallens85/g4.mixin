@@ -201,6 +201,24 @@
         }
 }
 
+/**************************************** PLACEHOLDER ****************************************/
+/*custome placeholder text - you can add color, font size, line height etc*/
+
+@mixin input-placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
 /**************************************** ROTATE ****************************************/
 @mixin rotate($angle) {
     -webkit-transform:rotate($angle);
